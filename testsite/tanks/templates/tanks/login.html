@@ -1,0 +1,15 @@
+{% extends 'tanks/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+
+<form method="post">
+    {% csrf_token %}
+
+    <div class="form-error">{{ form.non_field_errors }}</div>
+
+    <table>{{ form|crispy }}</table>
+    <button type="submit">Войти</button>
+</form>
+{% endblock %}

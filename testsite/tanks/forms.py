@@ -27,37 +27,35 @@ class AddPostForm(forms.ModelForm):
         return title
 
 
-# class RegisterUserForm(UserCreationForm):
-#     username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class': 'form-input'}))
-#     password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
-#     password2 = forms.CharField(label='Повтор пароля', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
-#     class Meta:
-#         model=User
-#         fields=('username', 'password1', 'password2')
-#         widget={
-#             'username': forms.TextInput(attrs={'class': 'form-input'}),
-#             'password1': forms.PasswordInput(attrs={'class': 'form-input'}),
-#             'password2': forms.PasswordInput(attrs={'class': 'form-input'})
-#         }
-
-class AddressForm(forms.ModelForm):
-    username = forms.CharField(
-        min_length=5, label='Логин', widget=forms.TextInput())
-    email = forms.CharField(label='Почта', widget=forms.TextInput())
-    password1 = forms.CharField(
-        min_length=8, label='Пароль', widget=forms.PasswordInput())
-    password2 = forms.CharField(
-        min_length=8, label='Повтор пароля', widget=forms.PasswordInput())
+class RegisterUserForm(UserCreationForm):
+    username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class': 'form-input'}))
+    email = forms.EmailField(label='Email', widget=forms.EmailInput(attrs={'class': 'form-input'}))
+    password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
+    password2 = forms.CharField(label='Повтор пароля', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
 
     class Meta:
-        model = User
-        fields = ('username', 'email', 'password1', 'password2')
+        model=User
+        fields=('username', 'email','password1', 'password2')
 
-    def clean_password2(self):
-        cd = self.cleaned_data
-        if cd['password1'] != cd['password2']:
-            raise forms.ValidationError('Пароли не совпадают')
-        return cd['password2']
+
+# class AddressForm(forms.ModelForm):
+#     username = forms.CharField(
+#         min_length=5, label='Логин', widget=forms.TextInput())
+#     email = forms.CharField(label='Почта', widget=forms.TextInput())
+#     password1 = forms.CharField(
+#         min_length=8, label='Пароль', widget=forms.PasswordInput())
+#     password2 = forms.CharField(
+#         min_length=8, label='Повтор пароля', widget=forms.PasswordInput())
+
+#     class Meta:
+#         model = User
+#         fields = ('username', 'email', 'password1', 'password2')
+
+#     def clean_password2(self):
+#         cd = self.cleaned_data
+#         if cd['password1'] != cd['password2']:
+#             raise forms.ValidationError('Пароли не совпадают')
+#         return cd['password2']
 
 
 class LoginUserForm(AuthenticationForm):

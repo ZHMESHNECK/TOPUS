@@ -178,7 +178,7 @@ class TankCategory(DataMixin, ListView):
 
 
 class RegisterUser(DataMixin, CreateView):
-    form_class = AddressForm
+    form_class = RegisterUserForm#AddressForm
     template_name = 'tanks/register.html'
     success_url = reverse_lazy('login')
 
@@ -189,6 +189,7 @@ class RegisterUser(DataMixin, CreateView):
 
     def form_valid(self, form):
         user = form.save()
+        print(form)
         login(self.request, user)
         return redirect('home')
 

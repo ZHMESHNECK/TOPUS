@@ -20,7 +20,3 @@ def show_categories(sort=None, cat_selected=0):
         cats = Category.objects.order_by(sort)
 
     return {'cats': cats, 'cat_selected': cat_selected}
-
-# @register.simple_tag()
-# def get_comments(filter):
-#     return Comment.objects.filter(pk=filter)

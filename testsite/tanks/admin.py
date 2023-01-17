@@ -33,3 +33,5 @@ admin.site.register(Comment)
 
 admin.site.site_title = 'Админка'
 admin.site.site_header = 'Админ-панель сайта о тунчесах'
+
+admin.site.register(Profile)

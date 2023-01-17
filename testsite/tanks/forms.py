@@ -79,3 +79,19 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ('name','email','text')
+        
+class UserUpdateForm(forms.ModelForm):
+    username = forms.CharField(max_length=100)
+    email = forms.EmailField()
+
+    class Meta:
+        model = User
+        fields = ['username', 'email']
+
+
+class ProfileUpdateForm(forms.ModelForm):
+    image = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}))
+    
+    class Meta:
+        model = Profile
+        fields = ['image']

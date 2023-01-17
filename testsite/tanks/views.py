@@ -4,9 +4,10 @@ from django.views.generic import ListView, DetailView, CreateView
 from django.views.generic.base import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
+from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import FormView
-from django.contrib.auth import logout
-from django.contrib.auth import login
+from django.contrib.auth import logout, login
+from django.contrib import messages
 from django.urls import reverse_lazy
 from .utils import *
 from .forms import *
@@ -178,7 +179,7 @@ class TankCategory(DataMixin, ListView):
 
 
 class RegisterUser(DataMixin, CreateView):
-    form_class = RegisterUserForm#AddressForm
+    form_class = RegisterUserForm  # AddressForm
     template_name = 'tanks/register.html'
     success_url = reverse_lazy('login')
 
@@ -189,7 +190,9 @@ class RegisterUser(DataMixin, CreateView):
 
     def form_valid(self, form):
         user = form.save()
-        print(form)
+        profile = Profile()
+        profile.user = user
+        profile.save()
         login(self.request, user)
         return redirect('home')
 
@@ -210,3 +213,23 @@ class LoginUser(DataMixin, LoginView):
 def logout_user(request):
     logout(request)
     return redirect('home')
+
+@login_required
+def profile(request):
+    if request.method == 'POST':
+        user_form = UserUpdateForm(request.POST, instance=request.user)
+        profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            print(f'user {user_form}')
+            print(f'profile {profile_form}')
+            profile_form.save()
+            # profile = Profile.objects.create(user=user, contact_person=username)
+            messages.success(request, 'Your profile is updated successfully')
+            return redirect('profile')
+    else:
+        user_form = UserUpdateForm(instance=request.user)
+        profile_form = ProfileUpdateForm(instance=request.user.profile)
+
+    return render(request, 'tanks/profile.html', {'user_form': user_form, 'profile_form': profile_form})

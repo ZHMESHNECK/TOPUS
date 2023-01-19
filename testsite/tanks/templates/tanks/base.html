@@ -6,8 +6,9 @@
 <head>
 <title>{{title}}</title>
 <link type="text/css" href="{% static 'tanks/css/styles.css' %}" rel="stylesheet" />
+<link type="text/css" href="{% static 'tanks/css/styles2.css' %}" rel="stylesheet" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link rel="shortcut icon" href="{% static 'tanks/images/logoit.jpg' %}" type="image/x-icon"/>
+<link rel="shortcut icon" href="{% static 'tanks/images/Octopus_2.png' %}" type="image/x-icon"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -19,8 +20,8 @@
 {% block mainmenu %}
     <div class="header">
     <ul id="mainmenu" class="mainmenu">
-    <li class="logo"><a href="{% url 'home' %}">
-    <div class="logo"></div>
+    <li class="logos"><a href="{% url 'home' %}">
+    <div class="logos"></div>
     </a></li>
     {% for m in menu %}
     <li><a href="{% url m.url_name %}">{{m.title}}</a></li>

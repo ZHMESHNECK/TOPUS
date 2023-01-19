@@ -12,8 +12,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     # path('', cache_page(60 * 5)(TankHome.as_view()), name='home'),
-    path('',(TankHome.as_view()), name='home'),
-    # path('about/', about, name='about'),
+    path('',TankHome.as_view(), name='home'),
     path('addpage/', AddPage.as_view(), name='add_page'),
     path('contact/', ContactFormView.as_view(), name='contact'),
     path('admin/', TankHome.as_view(), name='admin'),

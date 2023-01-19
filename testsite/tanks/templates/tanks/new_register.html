@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>{{ title }}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../../static/tanks/css/register.css">
+
+</head>
+    <div class="signup__container">
+        <div class="container__child signup__thumbnail">
+        <div class="thumbnail__logo">
+            <h1 class="logo__text">Topus</h1>
+        </div>
+        <div class="thumbnail__content text-center">
+            <h1 class="heading--primary">Welcome to Topus</h1>
+            <h2 class="heading--secondary">Are you ready to join the elite?</h2>
+        </div>
+        <div class="thumbnail__links">
+        </div>
+        <div class="signup__overlay"></div>
+        </div>
+        <div class="container__child div_class_form signup__form">
+            <form method="POST" class="forma">
+                {% csrf_token %}
+                <div class="place_enter">
+                  <label for="username" style="width: 71.933px;height: 19.233px;margin-bottom: 8px;">Username</label>
+                  <input class="form-control" type="text" name="username" placeholder="Username" required="" style="width: 296px;height: 24px;padding-top: 6px;padding-right: 12px;padding-left: 12px;border-bottom-style: solid;border-bottom-width: 1px;padding-bottom: 6px;">
+                </div>
+                <div class="place_enter">
+                  <label for="email" style="margin-bottom: 8px;height: 19px;width: 39.28;">Email</label>
+                  <input class="form-control" type="text" name="email" placeholder="Email" required="" style="width: 296px;height: 24px;padding-left: 12px;padding-top: 6px;padding-right: 12px;padding-bottom: 6px;border-bottom-width: 1px;border-bottom-style: solid;">
+                </div>
+                <div class="place_enter">
+                  <label for="password" style="width: 73px;height: 19px;margin-bottom: 8px;">Password</label>
+                  <input class="form-control" type="password" name="password1"  placeholder="********" required="" style="width: 296px;height: 24px;padding-left: 12px;padding-right: 12px;padding-bottom: 6px;padding-top: 6px;border-bottom-style: solid;border-bottom-width: 1px;">
+                </div>
+                <div class="place_enter">
+                  <label for="passwordRepeat" style="width: 124.383px;height: 19.2333px;margin-bottom: 8px;">Repeat Password</label>
+                  <input class="form-control" type="password" name="password2" placeholder="********" required="" >
+                </div>
+                <div class="m-t-lg">
+                  <ul class="list-inline" style="width: 325px;height: 40px;margin-top: 0px;padding-left: 0px;margin-left: -5px;">
+                    <li style="width: 150px;height: 40px;padding-left: 5px;padding-right: 5px;">
+                      <input class="btn btn--form" type="submit" value="Register">
+                    </li>
+                    <li>
+                      <a class="signup__link" href="{% url 'login' %}">Уже есть аккаунт</a>
+                    </li>
+                  </ul>
+                </div>
+            </form>
+          </div>
+    </div>
+</html>

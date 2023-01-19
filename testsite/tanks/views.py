@@ -179,8 +179,8 @@ class TankCategory(DataMixin, ListView):
 
 
 class RegisterUser(DataMixin, CreateView):
-    form_class = RegisterUserForm  # AddressForm
-    template_name = 'tanks/register.html'
+    form_class = RegisterUserForm
+    template_name = 'tanks/new_register.html'
     success_url = reverse_lazy('login')
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -199,7 +199,7 @@ class RegisterUser(DataMixin, CreateView):
 
 class LoginUser(DataMixin, LoginView):
     form_class = LoginUserForm
-    template_name = 'tanks/login.html'
+    template_name = 'tanks/new_login.html'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -214,22 +214,27 @@ def logout_user(request):
     logout(request)
     return redirect('home')
 
+
 @login_required
 def profile(request):
+    menu = [
+        {'title': "Добавить статью", 'url_name': 'add_page'},
+        {'title': "Обратная связь", 'url_name': 'contact'},
+        {'title': 'Админ', 'url_name': 'admin'},
+
+    ]
     if request.method == 'POST':
         user_form = UserUpdateForm(request.POST, instance=request.user)
-        profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+        profile_form = ProfileUpdateForm(
+            request.POST, request.FILES, instance=request.user.profile)
 
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
-            print(f'user {user_form}')
-            print(f'profile {profile_form}')
             profile_form.save()
-            # profile = Profile.objects.create(user=user, contact_person=username)
             messages.success(request, 'Your profile is updated successfully')
             return redirect('profile')
     else:
         user_form = UserUpdateForm(instance=request.user)
         profile_form = ProfileUpdateForm(instance=request.user.profile)
 
-    return render(request, 'tanks/profile.html', {'user_form': user_form, 'profile_form': profile_form})
+    return render(request, 'tanks/profile.html', {'user_form': user_form, 'profile_form': profile_form, 'menu': menu})

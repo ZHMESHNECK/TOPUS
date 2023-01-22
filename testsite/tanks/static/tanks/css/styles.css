@@ -82,8 +82,8 @@ ul.list-articles li {
 
 .logo {
 	background: url('../images/logos.png') no-repeat 10px 5px;
-	width: 70px;
-	height: 60px;
+	/* width: 70px;
+	height: 60px; */
 }
 
 ul.mainmenu {

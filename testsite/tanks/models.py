@@ -29,8 +29,8 @@ class Tank(models.Model):
         return self.comment_set.filter(parent__isnull=True)
 
     class Meta:
-        verbose_name = 'Танк'
-        verbose_name_plural = 'Танки'
+        verbose_name = 'Новость'
+        verbose_name_plural = 'Новости'
         ordering = ['-time_create']
 
 

@@ -7,6 +7,10 @@
 
 /* Свой ксс */
 
+.bta:hover {
+    text-decoration: none !important;
+}
+
 .logo {
     background: url('../images/Oc_sm.png') no-repeat 10px 5px;
     width: 95px;
@@ -15,9 +19,9 @@
 }
 
 .dark .bta {
-    font-family: "Weghorst Font";
+    font-family: "Sans-serif";
     color: rgb(255, 255, 255) !important;
-    text-decoration: none;
+    text-decoration: none !important;
     margin: 5px;
     font-size: 15px;
     line-height: 24px;
@@ -25,9 +29,9 @@
 }
 
 .bta {
-    font-family: "Weghorst Font";
+    font-family: "Sans-serif";
     color: #000 !important;
-    text-decoration: none;
+    text-decoration: none !important;
     margin: 5px;
     font-size: 15px;
     line-height: 24px;
@@ -35,7 +39,7 @@
 }
 
 .zag {
-    text-decoration: none;
+    text-decoration: none !important;
     color: #000 !important;
 }
 
@@ -47,7 +51,7 @@
 .li.last {
     font-family: "DM Sans", sans-serif;
     list-style: none;
-    text-decoration: none;
+    text-decoration: none !important;
     color: #111827;
 }
 
@@ -107,6 +111,12 @@
 
 .content-text h1 {
     font-size: 32px;
+}
+
+ul.list-articles {
+	list-style: none;
+	margin: 0;
+	padding: 0;
 }
 
 div.article-panel {

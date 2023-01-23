@@ -1,0 +1,41 @@
+{% extends 'tanks/new_base.html' %}
+{% block content %}
+<h1>{{ title }}</h1>
+
+<link rel="stylesheet" type="text/css" href="../../static/tanks/css/contact.css">
+<div class="container">
+    <div class="wrapper animated bounceInLeft">
+      <div class="contact">
+        <div class="alert">Your message has been sent!</div>
+        <form id="contactForm" method="post">
+            {% csrf_token %}
+          <p class="name-field">
+            <label>Имя <span>*</span></label>
+            <input type="text" name="name" id="name" required>
+          </p>
+          <p class="company-field">
+          </p>
+          <p class="email-field">
+            <label>Почта <span>*</span></label>
+            <input type="email" name="email" id="email" required>
+          </p>
+          <p class="phone-field">
+          </p>
+          <p class="message-field full">
+            <label>Текст</label>
+            <textarea name="content" rows="5" id="message"></textarea>
+          </p>
+          <p class="captcha-field full">
+            <label>Капча</label>
+            {{ form.captcha }}
+          </p>
+          <p class="required-field">Обязательное поле <span>*</span></p>
+          <p class="submit-button">
+            <button type="submit">Отправить</button>
+          </p>
+          <div class="form-error">{{ form.errors }}</div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

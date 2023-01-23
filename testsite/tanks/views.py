@@ -88,7 +88,7 @@ class AddPage(LoginRequiredMixin, DataMixin, CreateView):
 
 class ContactFormView(DataMixin, FormView):
     form_class = ContactForm
-    template_name = 'tanks/contact.html'
+    template_name = 'tanks/new_contact.html'
     success_url = reverse_lazy('home')
 
     def get_context_data(self, *, object_list=None, **kwargs):

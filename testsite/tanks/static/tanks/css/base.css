@@ -6,6 +6,11 @@
 }
 
 /* Свой ксс */
+.imga {
+    max-height: 1000px;
+    max-width: 500px;
+}
+
 
 .bta:hover {
     text-decoration: none !important;

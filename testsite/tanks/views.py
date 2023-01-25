@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.views.generic import ListView, DetailView, CreateView
 from django.views.generic.base import View
@@ -147,7 +147,6 @@ class AddReview(View):
             form.tank = post
             form.save()
         return redirect(post.get_absolute_url())
-        # return redirect('/')
 
 
 class TankCategory(DataMixin, ListView):
@@ -196,7 +195,6 @@ class RegisterUser(DataMixin, CreateView):
         login(self.request, user)
         return redirect('home')
 
-
 class LoginUser(DataMixin, LoginView):
     form_class = LoginUserForm
     template_name = 'tanks/new_login.html'
@@ -215,26 +213,56 @@ def logout_user(request):
     return redirect('home')
 
 
-@login_required
-def profile(request):
-    menu = [
-        {'title': "Добавить статью", 'url_name': 'add_page'},
-        {'title': "Обратная связь", 'url_name': 'contact'},
-        {'title': 'Админ', 'url_name': 'admin'},
+# @login_required
+# def profile(request):
+#     menu = [
+#         {'title': "Добавить статью", 'url_name': 'add_page'},
+#         {'title': "Обратная связь", 'url_name': 'contact'},
+#         {'title': 'Админ', 'url_name': 'admin'},
 
-    ]
-    if request.method == 'POST':
-        user_form = UserUpdateForm(request.POST, instance=request.user)
-        profile_form = ProfileUpdateForm(
-            request.POST, request.FILES, instance=request.user.profile)
+#     ]
+#     if request.method == 'POST':
+#         user_form = UserUpdateForm(request.POST, instance=request.user)
+#         profile_form = ProfileUpdateForm(
+#             request.POST, request.FILES, instance=request.user.profile)
 
-        if user_form.is_valid() and profile_form.is_valid():
-            user_form.save()
-            profile_form.save()
-            messages.success(request, 'Your profile is updated successfully')
-            return redirect('profile')
-    else:
-        user_form = UserUpdateForm(instance=request.user)
-        profile_form = ProfileUpdateForm(instance=request.user.profile)
+#         if user_form.is_valid() and profile_form.is_valid():
+#             user_form.save()
+#             profile_form.save()
+#             messages.success(request, 'Your profile is updated successfully')
+#             return redirect('profile')
+#     else:
+#         user_form = UserUpdateForm(instance=request.user)
+#         profile_form = ProfileUpdateForm(instance=request.user.profile)
 
-    return render(request, 'tanks/profile.html', {'user_form': user_form, 'profile_form': profile_form, 'menu': menu})
+#     return render(request, 'tanks/profile.html', {'user_form': user_form, 'profile_form': profile_form, 'menu': menu})
+
+
+class ProfileUser(DataMixin, DetailView):
+    model = Profile
+    template_name = 'tanks/new_profile.html'
+    login_url = reverse_lazy('home')
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ProfileUser, self).get_context_data(*args, **kwargs)
+        page_user = get_object_or_404(Profile, id=self.kwargs['pk'])
+        context['page_user'] = page_user
+        return context
+
+    def post(self, request, *args, **kwargs):
+        users = Profile.objects.get(id=request.user.profile.id)
+        if request.method == 'POST':
+            user_form = UserUpdateForm(request.POST, instance=request.user)
+            profile_form = ProfileUpdateForm(
+                request.POST, request.FILES, instance=request.user.profile)
+            sa = request.POST.get('status')
+            if sa:
+                users.satus = True
+                users.save()
+            if user_form.is_valid() and profile_form.is_valid():
+                user_form.save()
+                profile_form.save()
+            return redirect(f'/profile/{request.user.profile.id}/')
+        else:
+            user_form = UserUpdateForm(instance=request.user)
+            profile_form = ProfileUpdateForm(instance=request.user.profile)

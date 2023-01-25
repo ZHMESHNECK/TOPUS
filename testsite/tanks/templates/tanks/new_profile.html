@@ -1,0 +1,75 @@
+{% extends "tanks/new_base.html" %}
+{% block content %}
+<head>
+    <link rel="stylesheet" type="text/css" href="../../static/tanks/css/profile.css">
+</head>
+<main>
+    <section class="user_profile">
+      <div class="container header">
+        <div class="row">
+          <div class="twelve columns avatar">
+            <img class="user_profile avatar" src="../../../media/{{request.user.profile.image }}" style="cursor: pointer;">
+          </div>
+        </div>
+        <div class="row">
+          <div class="twelve columns">
+            <h1>Привет {{request.user.username}}!</h1>
+            <p>Добро пожаловать в твой профиль. Здесь ты сможешь сменить свою аватарку/ник/почту<br/>По всем вопросам пиши в обратную связь (колокольчик сверху)</p>
+          </div>
+        </div>
+        <div class="row">
+            <div class="one-half column upgrade">
+                {% if request.user.profile.status %}
+                <p>Account Type: <strong>Premium</strong>
+                    <label class="button button-upgrade" >
+                    <input value="False" form="forma" type="checkbox" name="status">
+                    Downgrade
+                    </label></p>
+                {% else %}
+                <p>Account Type: <strong>Free</strong>                     
+                    <label class="button button-upgrade">
+                    <input value="True" form="forma" type="checkbox" name="status">
+                    Upgrade
+                    </label>
+                </p>
+                {% endif %}
+            </div>
+        </div>
+      </div>
+      <div class="container tabs-area">
+        <div class="tab">
+          <div class="row title">
+            <div class="one-half column">
+              <h5 style="color: aliceblue;">профиль: </h5>
+            </div>
+            <div class="one-half column r-align">
+              
+            </div>
+          </div>
+          <div class="row">
+            <div class="two-thirds column">
+
+              <form method="post" id="forma">
+                {% csrf_token %}
+                <div>
+                  <div class="one-half column">
+                    <label class="one-half column" for="username">Username</label>
+                    <input class="u-full-width" type="text" value="{{ request.user.username }}" name="username">
+                  </div>
+                </div>
+                <div>
+                  <div class="one-half column">
+                    <label class="one-half column" for="email">Email</label>
+                    <input class="u-full-width" type="email" value="{{ request.user.email }}" name="email">
+                  </div>
+                </div>
+                <button type="submit" class="button-edit">Применить</button>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+{% endblock %}

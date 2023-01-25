@@ -11,7 +11,7 @@
 <link rel="shortcut icon" href="{% static 'tanks/images/Octopus_2.png' %}" type="image/x-icon"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-
+{{ form.non_field_errors }}
 <body>
     <script src="../../static/tanks/js/base.js"></script>
     <!-- Вверх панель -->
@@ -22,7 +22,7 @@
             <li class="logo"><a href="{% url 'home' %}">
                 <div class="logo"></div>
                 </a></li>
-            <div class="search-wrapper">
+            <div class="search-wrapper">          
               <input class="search-input" type="text" placeholder="Search">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="feather feather-search" viewBox="0 0 24 24">
                 <defs></defs>
@@ -32,27 +32,27 @@
             </div>
           </div>
           <div class="app-header-right">
-            <button class="mode-switch" title="Switch Theme">
+            <button class="mode-switch" title="Смена темы">
               <svg class="moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="24" height="24" viewBox="0 0 24 24">
                 <defs></defs>
                 <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
               </svg>
               {% if request.user.is_authenticated %}
             <a href="{% url 'add_page' %}">
-            <button class="add-btn" title="Add New Project">
+            <button class="add-btn" title="Предложить новость">
               <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
                 <line x1="12" y1="5" x2="12" y2="19" />
                 <line x1="5" y1="12" x2="19" y2="12" /></svg>
             </button></a>
             {% endif %}
             <a href="{% url 'contact' %}">
-                <button class="notification-btn">
+                <button class="notification-btn" title="Тех.поддержка">
               <svg href="{% url 'contact' %}" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell">
                 <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
                 <path d="M13.73 21a2 2 0 0 1-3.46 0" /></svg>
             </button></a>
                 {% if request.user.is_authenticated %}
-              <button class="profile-btn"><a class="bta" href="{% url 'profile' %}">{{ user.username }}</a></button> | </button class="profile-btn"><a class="bta" href="{% url 'logout' %}">Выйти</a></button>
+              <button class="profile-btn"><a class="bta" href="{% url 'profile' request.user.profile.id %}">{{ user.username }}</a></button> | </button class="profile-btn"><a class="bta" href="{% url 'logout' %}">Выйти</a></button>
                 {% else %} 
               <button class="profile-btn"><a class="bta" href="{% url 'register' %}">Регистрация</a></button> | </button class="profile-btn"><a class="bta" href="{% url 'login' %}">Войти</a></button>
                 {% endif %}
@@ -64,13 +64,18 @@
             <!-- left sidebar -->
           <div class="app-sidebar">
             {% if cat_selected == 4 %} <a href="/category/kibersport" class="app-sidebar-link active" title="Киберспорт">{% else %}<a href="/category/kibersport" class="app-sidebar-link" title="Киберспорт">{% endif %}
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
-                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                <polyline points="9 22 9 12 15 12 15 22" /></svg>
+                <svg id="_лой_2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><g>
+                    <path class="cls-1" d="M15.19,8.15c.06,.18,.31,.2,.4,.03,.21-.4,.43-.81,.67-1.24,.11-.2,.02-.46-.2-.53l-.62-.21c-.1-.03-.21-.02-.3,.04l-.31,.23c-.09,.07-.13,.18-.09,.29l.45,1.39Z"/>
+                    <path class="cls-1" d="M18.5,21.94v.76c0,.12-.1,.22-.22,.22H5.72c-.12,0-.22-.1-.22-.22v-.76c0-.12,.1-.22,.22-.22h.43c.06,0,.11-.05,.11-.11v-1.73c0-.12,.1-.22,.22-.22h2.93c.06,0,.11-.05,.11-.11v-.43c0-.12,.1-.22,.22-.22h.08s.07-.02,.09-.05c.14-.25,.26-.5,.37-.76,.57-1.39,.67-2.93,.32-4.39-.19-.79-.51-1.82-1.03-3.09-.06-.14-.01-.3,.11-.39l1.09-.79c.13-.1,.32-.02,.34,.14,.59,3.94,.54,8.46,.53,9.21,0,.06,.05,.11,.11,.11h.54c.06,0,.11-.05,.11-.11-.01-.76-.05-5.27,.53-9.21,.02-.16,.21-.24,.34-.14l1.09,.79c.12,.09,.17,.25,.11,.39-.53,1.27-.84,2.3-1.03,3.09-.35,1.46-.25,3,.32,4.39,.1,.26,.23,.51,.37,.76,.02,.03,.06,.05,.09,.05h.08c.12,0,.22,.1,.22,.22v.43c0,.06,.05,.11,.11,.11h2.92c.12,0,.22,.1,.22,.22v1.73c0,.06,.05,.11,.11,.11h.43c.12,0,.22,.1,.22,.22Z"/>
+                    <path class="cls-1" d="M8.81,8.15c-.06,.18-.31,.2-.4,.03-.21-.4-.43-.81-.67-1.24-.11-.2-.02-.46,.2-.53l.62-.21c.1-.03,.21-.02,.3,.04l.31,.23c.09,.07,.13,.18,.09,.29l-.45,1.39Z"/></g>
+                    <path class="cls-1" d="M12.16,1.28l.89,2.74c.02,.07,.09,.12,.16,.12h2.88c.16,0,.23,.21,.1,.3l-2.33,1.69c-.06,.04-.08,.12-.06,.19l.89,2.74c.05,.15-.13,.28-.26,.19l-2.33-1.69c-.06-.04-.14-.04-.2,0l-2.33,1.69c-.13,.1-.31-.03-.26-.19l.89-2.74c.02-.07,0-.14-.06-.19l-2.33-1.69c-.13-.1-.06-.3,.1-.3h2.88c.07,0,.14-.05,.16-.12l.89-2.74c.05-.15,.27-.15,.32,0Z"/>
+                </svg>
             </a>
             {% if cat_selected == 5 %} <a href="/category/igry" class="app-sidebar-link active" title="Игры">{% else %}<a href="/category/igry" class="app-sidebar-link" title="Игры">{% endif %}
                 <svg id="_лой_2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path class="cls-4" d="M23,15.76c0-.21-.01-.42-.04-.6-.29-3.8-1.61-6.76-2.27-8.03-.1-.23-.23-.46-.37-.67h0c-.79-1.17-2.13-1.93-3.65-1.93-.6,0-1.16,.12-1.68,.33h0c-.08,.04-.17,.07-.25,.11s-.16,.08-.25,.11c-1.07,.43-1.94,.45-2.19,.45-.07,0-.15,0-.22,0h-.14c-.07,0-.15,0-.22,0-.25,0-1.12-.01-2.19-.45-.08-.03-.17-.07-.25-.11s-.17-.08-.25-.11h0c-.52-.21-1.09-.33-1.68-.33-1.52,0-2.85,.76-3.65,1.92h0c-.14,.22-.27,.44-.37,.68-.66,1.27-1.99,4.23-2.27,8.03-.02,.19-.03,.39-.04,.6-.02,1.37,.4,3.12,1.64,3.59,1.18,.45,2.55-.46,3.4-1.29,1.04-.98,1.4-1.9,2.55-2.4,1.1-.54,3.19-.54,3.19-.54h.44s2.1,0,3.19,.54c1.15,.49,1.51,1.41,2.55,2.4,.84,.83,2.22,1.74,3.4,1.29,1.24-.47,1.66-2.22,1.64-3.59Z"/><circle class="cls-3" cx="15.61" cy="10.97" r=".7"/><circle class="cls-2" cx="17.91" cy="8.75" r=".7"/><line class="cls-1" x1="6.95" y1="7.78" x2="6.95" y2="12.78"/><line class="cls-1" x1="4.45" y1="10.28" x2="9.45" y2="10.28"/>
+                    <path class="cls-4" d="M23,15.76c0-.21-.01-.42-.04-.6-.29-3.8-1.61-6.76-2.27-8.03-.1-.23-.23-.46-.37-.67h0c-.79-1.17-2.13-1.93-3.65-1.93-.6,0-1.16,.12-1.68,.33h0c-.08,.04-.17,.07-.25,.11s-.16,.08-.25,.11c-1.07,.43-1.94,.45-2.19,.45-.07,0-.15,0-.22,0h-.14c-.07,0-.15,0-.22,0-.25,0-1.12-.01-2.19-.45-.08-.03-.17-.07-.25-.11s-.17-.08-.25-.11h0c-.52-.21-1.09-.33-1.68-.33-1.52,0-2.85,.76-3.65,1.92h0c-.14,.22-.27,.44-.37,.68-.66,1.27-1.99,4.23-2.27,8.03-.02,.19-.03,.39-.04,.6-.02,1.37,.4,3.12,1.64,3.59,1.18,.45,2.55-.46,3.4-1.29,1.04-.98,1.4-1.9,2.55-2.4,1.1-.54,3.19-.54,3.19-.54h.44s2.1,0,3.19,.54c1.15,.49,1.51,1.41,2.55,2.4,.84,.83,2.22,1.74,3.4,1.29,1.24-.47,1.66-2.22,1.64-3.59Z"/>
+                    <circle class="cls-3" cx="15.61" cy="10.97" r=".7"/>
+                    <circle class="cls-2" cx="17.91" cy="8.75" r=".7"/><line class="cls-1" x1="6.95" y1="7.78" x2="6.95" y2="12.78"/><line class="cls-1" x1="4.45" y1="10.28" x2="9.45" y2="10.28"/>
                 </svg>
             </a>
             {% if cat_selected == 6 %} <a href="/category/media" class="app-sidebar-link active" title="Медиа">{% else %}<a href="/category/media" class="app-sidebar-link" title="Медиа">{% endif %}

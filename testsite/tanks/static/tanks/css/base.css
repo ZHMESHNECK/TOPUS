@@ -41,6 +41,7 @@
 .zag {
     text-decoration: none !important;
     color: #000 !important;
+    
 }
 
 .dark .zag {
@@ -229,6 +230,7 @@ button, a {
   height: 100%;
   overflow: hidden;
   padding: 16px 24px 24px 0;
+  justify-content: space-between;
 }
 .app-header {
   display: flex;

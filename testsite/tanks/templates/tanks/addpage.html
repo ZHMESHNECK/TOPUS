@@ -1,17 +1,48 @@
 {% extends 'tanks/new_base.html' %}
-
 {% block content %}
 <h1>{{ title }}</h1>
-<form action="{% url 'add_page' %}" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
 
-    <!-- Ошибки не связанные с полями -->
-    <div class="form-error">{{ form.non_field_errors }}</div> 
-    
-    {% for f in form %}
-    <p><label class='form-label' for="{{ f.id_for_label }}">{{ f.label }}:</label>{{ f }}</p>
-    <div class="form-error">{{ f.errors }}</div>
-    {% endfor %}
-    <button type='submit'>Добавить</button>
-</form>
+<link rel="stylesheet" type="text/css" href="../../static/tanks/css/contact.css">
+<div class="container">
+    <div class="wrapper animated bounceInLeft">
+      <div class="contact">
+        <div class="alert">Your message has been sent!</div>
+        <form id="contactForm" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+          <p class="name-field">
+            <label>Заголовок <span>*</span></label>
+            <input type="text" name="title" required>
+          </p>
+          <p class="company-field">
+            <label>Фото</label>
+            <input type="file" name="photo" accept="image/*">
+          </p>
+          <p class="email-field">
+            <label>URL</label>
+            <input type="text" name="slug" class="vTextField" maxlength="250" id="id_slug">
+          </p>
+          <p class="phone-field">
+            <label>Категория <span></span></label>
+            <select name="cat" id="id_cat">
+                <option value="" selected="">Категория не выбрана</option>
+                <option value="4">Киберспорт</option>
+                <option value="5">Игры</option>
+                <option value="6">Медиа</option>
+                <option value="7">Блогеры-актёры</option>
+              </select>
+          </p>
+          <p class="message-field full">
+            <label>Текст</label>
+            <textarea name="content" rows="5" id="message"></textarea>
+          </p>
+        <p class="required-field">Обязательное поле <span>*</span></p>
+          <p class="submit-button">
+              <button type="submit">Отправить</button>
+              <div class="form-error">{{ form.errors }}</div>
+            </p>
+        </form>
+      </div>
+    </div>
+  </div>
+
 {% endblock %}

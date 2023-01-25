@@ -91,7 +91,8 @@ class UserUpdateForm(forms.ModelForm):
 
 class ProfileUpdateForm(forms.ModelForm):
     image = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}))
+    status = forms.BooleanField(required=False)
     
     class Meta:
         model = Profile
-        fields = ['image']
+        fields = ['image','status']

@@ -1,17 +1,16 @@
-from django.shortcuts import render, redirect,get_object_or_404
+from django.shortcuts import redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.views.generic import ListView, DetailView, CreateView
 from django.views.generic.base import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
-from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import FormView
 from django.contrib.auth import logout, login
-from django.contrib import messages
 from django.urls import reverse_lazy
+from django.db.models import Q
+from .models import *
 from .utils import *
 from .forms import *
-from .models import *
 
 
 class TankHome(DataMixin, ListView):
@@ -25,6 +24,10 @@ class TankHome(DataMixin, ListView):
         return context | c_def
 
     def get_queryset(self):
+        query = self.request.GET.get('q')
+        if query:
+            return Tank.objects.filter(
+                Q(title__icontains=query) | Q(content__icontains=query), is_published=True)
         return Tank.objects.filter(is_published=True).select_related('cat')
 
 
@@ -194,6 +197,7 @@ class RegisterUser(DataMixin, CreateView):
         profile.save()
         login(self.request, user)
         return redirect('home')
+
 
 class LoginUser(DataMixin, LoginView):
     form_class = LoginUserForm

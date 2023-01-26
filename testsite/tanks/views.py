@@ -43,25 +43,6 @@ class TankHome(DataMixin, ListView):
 #     return render(request, 'tanks/index.html', context=context)
 
 
-# def about(request):
-#     return render(request, 'tanks/about.html', {'menu': menu, 'title': 'О сайте'})
-
-
-def categories(request, tank_class):
-    # if (request.GET):  # если в ссылке есть гет запрос, то выводим в консоль (http://127.0.0.1:8000/tanks/1/?name=DA&type=pop)
-    #     print(request.GET)
-    if tank_class > 5:
-        raise Http404
-    return HttpResponse(f"<h1>Статьи по категориям</h1><p>{tank_class}</p>")
-
-
-def archive(request, year):
-    # if int(year) > 2022:  # если год больше 2022, выдаём ошибку 404
-    #     raise Http404()
-    if int(year) > 2022:  # перемещаем юзера на главную страницу 302 редирект
-        return redirect('/')  # , permanent=True) - 301 редирект
-    return HttpResponse(f'<h1>Архив по годам</h1><p>{year}</p>')
-
 
 def pageNotFound(request, exception):
     return HttpResponseNotFound('<h1>Страница не найдена</h1><h2>проверьте url ссылку</h2>')
@@ -138,7 +119,7 @@ class ShowPost(DataMixin, DetailView):
 
 
 class AddReview(View):
-    """Отзывы"""
+    """Отзывы""" 
 
     def post(self, request, pk):
         form = CommentForm(request.POST)
@@ -148,6 +129,7 @@ class AddReview(View):
             if request.POST.get('parent', None):
                 form.parent_id = int(request.POST.get('parent'))
             form.tank = post
+            form.profile = request.user.profile
             form.save()
         return redirect(post.get_absolute_url())
 
@@ -246,6 +228,19 @@ class ProfileUser(DataMixin, DetailView):
     model = Profile
     template_name = 'tanks/new_profile.html'
     login_url = reverse_lazy('home')
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated == True:
+            # Try to dispatch to the right method; if a method doesn't exist,
+            # defer to the error handler. Also defer to the error handler if the
+            # request method isn't on the approved list.
+            if request.method.lower() in self.http_method_names:
+                handler = getattr(self, request.method.lower(), self.http_method_not_allowed)
+            else:
+                handler = self.http_method_not_allowed
+            return handler(request, *args, **kwargs)
+        else:
+            return redirect('login')
 
     def get_context_data(self, *args, **kwargs):
         context = super(ProfileUser, self).get_context_data(*args, **kwargs)

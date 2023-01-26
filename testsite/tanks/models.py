@@ -53,24 +53,6 @@ class Category(models.Model):
         ordering = ['id']
 
 
-class Comment(models.Model):
-    email = models.EmailField()
-    name = models.CharField("Имя", max_length=100)
-    text = models.TextField("Сообщение", max_length=5000)
-    parent = models.ForeignKey(
-        'self', verbose_name="Родитель", on_delete=models.SET_NULL, blank=True, null=True
-    )
-    tank = models.ForeignKey(
-        Tank, verbose_name="Танк", on_delete=models.CASCADE)
-
-    
-    def __str__(self):
-        return f"{self.email} - {self.tank}"
-
-    class Meta:
-        verbose_name = 'Коментарий'
-        verbose_name_plural = 'Коментарии'
-
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -92,5 +74,25 @@ class Profile(models.Model):
 
     class Meta:
         verbose_name = 'Профиль'
-        verbose_name_plural = 'Профиля'
+        verbose_name_plural = 'Профили'
+
+class Comment(models.Model):
+    email = models.EmailField()
+    name = models.CharField("Имя", max_length=100)
+    text = models.TextField("Сообщение", max_length=5000)
+    parent = models.ForeignKey(
+        'self', verbose_name="Родитель", on_delete=models.SET_NULL, blank=True, null=True
+    )
+    tank = models.ForeignKey(
+        Tank, verbose_name="Танк", on_delete=models.CASCADE)
+    
+    profile = models.ForeignKey(
+        Profile, verbose_name="Профиль", on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f"{self.email} - {self.tank}"
+
+    class Meta:
+        verbose_name = 'Коментарий'
+        verbose_name_plural = 'Коментарии'
 

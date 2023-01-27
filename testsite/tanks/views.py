@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, get_object_or_404
-from django.http import HttpResponse, HttpResponseNotFound, Http404
+from django.http import HttpResponseNotFound
 from django.views.generic import ListView, DetailView, CreateView
 from django.views.generic.base import View
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -23,6 +23,7 @@ class TankHome(DataMixin, ListView):
         c_def = self.get_user_context(title='Главная страница')
         return context | c_def
 
+    #search / sort
     def get_queryset(self):
         query = self.request.GET.get('q')
         if query:

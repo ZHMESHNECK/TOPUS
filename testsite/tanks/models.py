@@ -19,7 +19,7 @@ class Tank(models.Model):
     cat = models.ForeignKey(
         'Category', on_delete=models.PROTECT, verbose_name='Категория')
 
-    def __str__(self):  # для красивого вывода
+    def __str__(self):  # для красивого вывода в консоле
         return self.title
 
     def get_absolute_url(self):

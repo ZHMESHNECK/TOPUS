@@ -44,6 +44,34 @@
     list-style: none;
 }
 
+
+.row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: 0px;
+}
+
+.dark .content-text {
+    /* margin: 60px 0 0 30px; */
+    color: var(--main-color);
+    font-size: 20px;
+    font-family: "DM Sans", sans-serif;
+}
+
+.dark .p{
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: var(--main-color);
+}
+p {
+    margin-top: 0;
+    margin-bottom: 1rem; 
+}
+
+
 .dark .bta {
     font-family: 'Montserrat', sans-serif;
     color: rgb(255, 255, 255) !important;
@@ -194,7 +222,8 @@ p.link-read-post a {
     --message-box-border: #e9ebf0;
     --more-list-bg: #fff;
     --more-list-bg-hover: #f6fbff;
-    --more-list-shadow: rgba(209, 209, 209, 0.4);
+    --more-list-shadow:
+    rgba(209, 209, 209, 0.4);
     --button-bg: #1f1c24;
     --search-area-bg: #fff;
     --star: #1ff1c2e;
@@ -205,21 +234,30 @@ p.link-read-post a {
     --app-container: #1f1d2b;
     --app-container: #111827;
     --main-color: #fff;
-    --secondary-color: rgba(255, 255, 255, .8);
+    --secondary-color:
+    rgba(255, 255, 255, .8);
     --projects-section: #1f2937;
-    --link-color: rgba(255, 255, 255, .8);
-    --link-color-hover: rgba(195, 207, 244, 0.1);
-    --link-color-active-bg: rgba(195, 207, 244, 0.2);
+    --link-color:
+    rgba(255, 255, 255, .8);
+    --link-color-hover:
+    rgba(195, 207, 244, 0.1);
+    --link-color-active-bg:
+    rgba(195, 207, 244, 0.2);
     --button-bg: #1f2937;
     --search-area-bg: #1f2937;
     --message-box-hover: #243244;
-    --message-box-border: rgba(255, 255, 255, .1);
+    --message-box-border:
+    rgba(255, 255, 255, .1);
     --star: #ffd92c;
-    --light-font: rgba(255, 255, 255, .8);
+    --light-font:
+    rgba(255, 255, 255, .8);
     --more-list-bg: #2f3142;
-    --more-list-bg-hover: rgba(195, 207, 244, 0.1);
-    --more-list-shadow: rgba(195, 207, 244, 0.1);
-    --message-btn: rgba(195, 207, 244, 0.1);
+    --more-list-bg-hover:
+    rgba(195, 207, 244, 0.1);
+    --more-list-shadow:
+    rgba(195, 207, 244, 0.1);
+    --message-btn:
+    rgba(195, 207, 244, 0.1);
 }
 
 html,

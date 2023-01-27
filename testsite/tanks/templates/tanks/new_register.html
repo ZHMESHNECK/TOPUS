@@ -28,31 +28,17 @@
         <div class="container__child div_class_form signup__form">
             <form method="POST" class="forma">
                 {% csrf_token %}
-                <div class="place_enter">
-                  <label for="username" style="width: 71.933px;height: 19.233px;margin-bottom: 8px;">Username</label>
-                  <input class="form-control" type="text" name="username" placeholder="Username" required="" style="width: 296px;height: 24px;padding-top: 6px;padding-right: 12px;padding-left: 12px;border-bottom-style: solid;border-bottom-width: 1px;padding-bottom: 6px;">
-                </div>
-                <div class="place_enter">
-                  <label for="email" style="margin-bottom: 8px;height: 19px;width: 39.28;">Email</label>
-                  <input class="form-control" type="text" name="email" placeholder="Email" required="" style="width: 296px;height: 24px;padding-left: 12px;padding-top: 6px;padding-right: 12px;padding-bottom: 6px;border-bottom-width: 1px;border-bottom-style: solid;">
-                </div>
-                <div class="place_enter">
-                  <label for="password" style="width: 73px;height: 19px;margin-bottom: 8px;">Password</label>
-                  <input class="form-control" type="password" name="password1"  placeholder="********" required="" style="width: 296px;height: 24px;padding-left: 12px;padding-right: 12px;padding-bottom: 6px;padding-top: 6px;border-bottom-style: solid;border-bottom-width: 1px;">
-                </div>
-                <div class="place_enter">
-                  <label for="passwordRepeat" style="width: 124.383px;height: 19.2333px;margin-bottom: 8px;">Repeat Password</label>
-                  <input class="form-control" type="password" name="password2" placeholder="********" required="" >
-                </div>
+                {{ form.non_field_errors }}
+                {{form.as_p}}
                 <div class="m-t-lg">
-                  <ul class="list-inline" style="width: 325px;height: 40px;margin-top: 0px;padding-left: 0px;margin-left: -5px;">
-                    <li style="width: 150px;height: 40px;padding-left: 5px;padding-right: 5px;">
-                      <input class="btn btn--form" type="submit" value="Register">
-                    </li>
-                    <li>
-                      <a class="signup__link" href="{% url 'login' %}">Уже есть аккаунт</a>
-                    </li>
-                  </ul>
+                    <ul class="list-inline" style="width: 325px;height: 40px;margin-top: 0px;padding-left: 0px;margin-left: -5px;">
+                        <li style="width: 150px;height: 40px;padding-left: 5px;padding-right: 5px;">
+                            <input class="btn btn--form" type="submit" value="Register">
+                        </li>
+                        <li>
+                            <a class="signup__link" href="{% url 'login' %}">Уже есть аккаунт</a>
+                        </li>
+                    </ul>
                 </div>
             </form>
           </div>

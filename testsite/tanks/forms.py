@@ -28,15 +28,18 @@ class AddPostForm(forms.ModelForm):
 
 
 class RegisterUserForm(UserCreationForm):
-    username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class': 'form-input'}))
-    email = forms.EmailField(label='Email', widget=forms.EmailInput(attrs={'class': 'form-input'}))
-    password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
-    password2 = forms.CharField(label='Повтор пароля', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
+    username = forms.CharField(label='USERNAME', label_suffix='', widget=forms.TextInput(
+        attrs={'class': 'form-control', 'style': "height: 19.233px;margin-bottom: 8px;", 'placeholder': "Логин"}))
+    email = forms.EmailField(label='EMAIL', label_suffix='', widget=forms.EmailInput(attrs={
+                             'class': 'form-control', 'style': "margin-bottom: 8px;height: 19px;", 'placeholder': "Почта"}))
+    password1 = forms.CharField(label='PASSWORD', label_suffix='', widget=forms.PasswordInput(
+        attrs={'class': 'form-control', 'style': "height: 19px;margin-bottom: 8px;", 'placeholder': "********"}))
+    password2 = forms.CharField(label='REPEAT_PASS', label_suffix='', widget=forms.PasswordInput(
+        attrs={'class': 'form-control', 'style': "height: 19.2333px;margin-bottom: 8px;", 'placeholder': "********"}))
 
     class Meta:
-        model=User
-        fields=('username', 'email','password1', 'password2')
-
+        model = User
+        fields = ('username', 'email', 'password1', 'password2')
 
 # class AddressForm(forms.ModelForm):
 #     username = forms.CharField(
@@ -70,16 +73,17 @@ class ContactForm(forms.Form):
     name = forms.CharField(label='Имя', max_length=100)
     email = forms.EmailField(label='Почта')
     content = forms.CharField(label='Текст',
-        widget=forms.Textarea(attrs={'cols': 60, 'rows': 10}))
+                              widget=forms.Textarea(attrs={'cols': 60, 'rows': 10}))
     captcha = CaptchaField()
 
 
 class CommentForm(forms.ModelForm):
-    
+
     class Meta:
         model = Comment
-        fields = ('name','email','text')
-        
+        fields = ('name', 'email', 'text')
+
+
 class UserUpdateForm(forms.ModelForm):
     username = forms.CharField(max_length=100)
     email = forms.EmailField()
@@ -90,9 +94,10 @@ class UserUpdateForm(forms.ModelForm):
 
 
 class ProfileUpdateForm(forms.ModelForm):
-    image = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}))
+    image = forms.ImageField(widget=forms.FileInput(
+        attrs={'class': 'form-control-file'}))
     status = forms.BooleanField(required=False)
-    
+
     class Meta:
         model = Profile
-        fields = ['image','status']
+        fields = ['image', 'status']

@@ -20,3 +20,8 @@
 
 # База данных
 - POSTGRES_DB
+
+
+## спасибо
+- [TOMAS](https://www.instagram.com/liondteach/) ( CSS | HTML )
+- [vladfraer1](https://www.youtube.com/@vladfraer1) ( logo | images )

@@ -62,33 +62,35 @@
             </form>
         </div>
         <!--  //contact form grid ends here -->
-    </div>
-</div>
-{% for review in post.get_comment %}
-<div class="media py-5">
-    <img class="com-avatar" src="{{ review.profile.image.url }}">
-    <div class="media-body mt-4">
-        <h5 class="mt-0 editContent">
-            Юзер: {{ review.name }}
-        </h5>
-        <p class="mt-2 editContent">
-           Написал: {{ review.text }}
-        </p>
-        <a href="#CommentForm" onclick="AddReview('{{ review.name }}','{{ review.id }}')">Ответить</a>
-        {% for rew in review.comment_set.all %}
-        <div class="media mt-5 editContent">
-            <a class="pr-3" href="#">
-                <img class="com-avatar" src="{{ rew.profile.image.url }}">
+        {% for review in post.get_comment %}
+        <div class="media py-5">
+            <a class="pr-3" href="/profile/{{ review.profile.id }}">
+                <img class="com-avatar" src="{{ review.profile.image.url }}">
             </a>
-            <div class="media-body">
-                <h5 class="mt-0 editContent">{{ rew.name }} ответил {{ review.name }}`у</h5>
-                <p class="mt-2 editContent">{{ rew.text }}</p>
+            <div class="media-body mt-4">
+                <h5 class="mt-0 editContent">
+                    Юзер: <a  href="/profile/{{ review.profile.id }}">{{ review.name }}</a>
+                </h5>
+                <p class="mt-2 editContent">
+                   Написал: {{ review.text }}
+                </p>
+                <a href="#CommentForm" onclick="AddReview('{{ review.name }}','{{ review.id }}')">Ответить</a>
+                {% for rew in review.comment_set.all %}
+                <div class="media mt-5 editContent">
+                    <a class="pr-3" href="/profile/{{ rew.profile.id }}">
+                        <img class="com-avatar" src="{{ rew.profile.image.url }}">
+                    </a>
+                    <div class="media-body">
+                        <h5 class="mt-0 editContent"><a  href="/profile/{{rew.profile.id}}">{{ rew.name }}</a> ответил {{ review.name }}`у</h5>
+                        <p class="mt-2 editContent">{{ rew.text }}</p>
+                    </div>
+                </div>
+            {% endfor %}
             </div>
         </div>
-    {% endfor %}
+        {% endfor %}
     </div>
 </div>
-{% endfor %}
 <script>
     function AddReview(name, id) {
         document.getElementById("contactparent").value = id;

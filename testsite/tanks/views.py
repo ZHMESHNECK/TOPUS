@@ -264,5 +264,5 @@ class ProfileUser(DataMixin, DetailView):
                 profile_form.save()
             return redirect(f'/profile/{request.user.profile.id}/')
         else:
-            user_form = UserUpdateForm(instance=request.user)
-            profile_form = ProfileUpdateForm(instance=request.user.profile)
+            user_form = UserUpdateForm(instance=users)
+            profile_form = ProfileUpdateForm(instance=users.profile)

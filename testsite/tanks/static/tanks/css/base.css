@@ -8,6 +8,11 @@
 
 /* Свой ксс */
 
+a:hover {
+    color: #0056b3;
+    text-decoration: none !important;
+  }
+
 .com-avatar {
     width: 100px;
     height: 100px;
@@ -275,8 +280,7 @@ body {
     background-color: var(--app-container);
 }
 
-button,
-a {
+button {
     cursor: pointer;
 }
 
